@@ -1,0 +1,59 @@
+{% extends 'centre/base.html' %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 0 auto;">
+    <h1>{{ title }}</h1>
+
+    {% if messages %}
+    <div style="margin-bottom: 20px;">
+        {% for message in messages %}
+        <div style="padding: 10px; background: {% if message.tags == 'success' %}#4CAF50{% else %}#F44336{% endif %}; color: white; border-radius: 4px;">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="post" style="background: #f9f9f9; padding: 20px; border-radius: 8px;">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+            <div style="color: #F44336; font-size: 0.9em; margin-top: 5px;">
+                {{ field.errors|join:", " }}
+            </div>
+            {% endif %}
+            {% if field.help_text %}
+            <small style="display: block; color: #666; font-size: 0.8em; margin-top: 5px;">{{ field.help_text }}</small>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div style="margin-top: 20px;">
+            <button type="submit" style="background: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer;">Guardar</button>
+            <a href="{% url 'centre:student_list' %}" style="background: #9E9E9E; color: white; padding: 10px 15px; text-decoration: none; border-radius: 4px; display: inline-block; margin-left: 10px;">Cancel·lar</a>
+        </div>
+    </form>
+</div>
+
+<script>
+// Mostrar/ocultar campo tutor según el rol seleccionado
+document.getElementById('id_rol').addEventListener('change', function() {
+    const tutorField = document.getElementById('id_tutor').parentElement;
+    if (this.value === 'teacher') {
+        tutorField.style.display = 'block';
+    } else {
+        tutorField.style.display = 'none';
+        document.getElementById('id_tutor').checked = false;
+    }
+});
+
+// Ejecutar al cargar la página
+window.onload = function() {
+    document.getElementById('id_rol').dispatchEvent(new Event('change'));
+};
+</script>
+{% endblock %}

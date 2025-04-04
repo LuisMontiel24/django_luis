@@ -1,0 +1,31 @@
+{% extends 'centre/base.html' %}
+
+{% block content %}
+<h1>INFORMACIÓ ALUMNAT TIC BARCELONA</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOM</th>
+            <th>COGNOM</th>
+            <th>ROL</th>
+            <th>ACCIONS</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for alumne in alumnes %}
+        <tr>
+            <td>{{ alumne.id }}</td>
+            <td>{{ alumne.nom }}</td>
+            <td>{{ alumne.cognom1 }}</td>
+            <td>{{ alumne.get_rol_display }}</td>
+            <td><a href="{% url 'centre:student_detail' alumne.pk %}">INFO</a></td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No hi ha alumnes registrats</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

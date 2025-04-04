@@ -1,0 +1,35 @@
+{% extends 'centre/base.html' %}
+
+{% block content %}
+<h1>INFORMACIÓ PROFESSORAT TIC BARCELONA</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOM</th>
+            <th>COGNOM</th>
+            <th>EDAT</th>
+            <th>ROL</th>
+            <th>CURS</th>
+            <th>ACCIONS</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for professor in professors %}
+        <tr>
+            <td>{{ professor.id }}</td>
+            <td>{{ professor.nom }}</td>
+            <td>{{ professor.cognom1 }}</td>
+            <td>{{ professor.edat|default:"-" }}</td>
+            <td>{{ professor.get_rol_display }}</td>
+            <td>{{ professor.curs }}</td>
+            <td><a href="{% url 'centre:teacher_detail' professor.pk %}">INFO</a></td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">No hi ha professors registrats</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'centre/base.html' %}
+
+{% block content %}
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<h1>INFORMACIÓ ALUMNAT TIC BARCELONA</h1>
+
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<a href="{% url 'centre:student_add' %}" style="background: #4CAF50; color: white; padding: 10px 15px; text-decoration: none; border-radius: 4px; display: inline-block; margin-bottom: 20px;">Afegir Alumne</a>
+
+<table style="width: 100%; border-collapse: collapse;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">ID</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">NOM</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">COGNOM</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">CURS</th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">ACCIONS</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+        <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 12px;">{{ student.id }}</td>
+            <td style="padding: 12px;">{{ student.nom }}</td>
+            <td style="padding: 12px;">{{ student.cognom1 }}</td>
+            <td style="padding: 12px;">{{ student.curs }}</td>
+            <td style="padding: 12px;">
+                <a href="{% url 'centre:persona_edit' student.pk %}" style="background: #FFC107; color: black; padding: 6px 12px; text-decoration: none; border-radius: 4px; margin-right: 5px;">Editar</a>
+                <a href="{% url 'centre:persona_delete' student.pk %}" style="background: #F44336; color: white; padding: 6px 12px; text-decoration: none; border-radius: 4px;">Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" style="padding: 12px; text-align: center;">No hi ha alumnes registrats</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Última actualización: {{ last_update }} -->
+{% endblock %}

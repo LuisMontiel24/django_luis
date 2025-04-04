@@ -1,0 +1,13 @@
+{% extends 'centre/base.html' %}
+
+{% block content %}
+<h1>DETALLS DE L'ALUMNE</h1>
+<div>
+    <p><strong>Nom:</strong> {{ alumne.nom }}</p>
+    <p><strong>Cognoms:</strong> {{ alumne.cognom1 }} {{ alumne.cognom2|default:"" }}</p>
+    <p><strong>Correu:</strong> {{ alumne.correu }}</p>
+    <p><strong>Curs:</strong> {{ alumne.curs }}</p>
+    <p><strong>Mòduls:</strong> {{ alumne.moduls }}</p>
+</div>
+<a href="{% url 'centre:students' %}">Tornar a la llista</a>
+{% endblock %}

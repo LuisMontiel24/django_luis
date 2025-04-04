@@ -1,0 +1,13 @@
+{% extends 'centre/base.html' %}
+
+{% block content %}
+<h1>Confirmar eliminació</h1>
+
+<p>Estàs segur que vols eliminar a {{ persona.nom }} {{ persona.cognom1 }}?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a href="{% url 'centre:student_list' %}" class="btn btn-secondary">Cancel·lar</a>
+</form>
+{% endblock %}
