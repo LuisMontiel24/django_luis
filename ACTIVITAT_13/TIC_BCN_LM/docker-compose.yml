@@ -1,0 +1,39 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:13
+    container_name: dbDjango
+    environment:
+      POSTGRES_DB: ITIC_DB
+      POSTGRES_USER: ITIC_user
+      POSTGRES_PASSWORD: ITIC
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    container_name: django_app
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 2024_luis.montiel@itic.cat
+      PGADMIN_DEFAULT_PASSWORD: luis123
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
