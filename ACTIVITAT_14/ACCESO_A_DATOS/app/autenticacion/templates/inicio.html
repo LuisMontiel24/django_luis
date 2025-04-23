@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Benvingut/da {{ usuario.nombre }}</h1>
+  <p>Ciutat: {{ usuario.ciudad }}</p>
+  <a href="{% url 'logout' %}">Tancar sessió</a>
+{% endblock %}

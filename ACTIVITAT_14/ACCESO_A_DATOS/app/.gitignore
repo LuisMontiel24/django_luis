@@ -1,0 +1,12 @@
+# Ignorar entorno virtual y configuraciones locales
+.venv/
+.idea/
+__pycache__/
+*.pyc
+
+# Volúmenes de postgres
+pgdata/
+
+# Archivos de pruebas
+*.log
+*.sqlite3
